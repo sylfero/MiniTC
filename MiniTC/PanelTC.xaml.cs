@@ -33,12 +33,12 @@ namespace MiniTC
             set => SetValue(ComboItemsSourceProperty, value);
         }
 
-        public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register("SelectedItem", typeof(string), typeof(PanelTC), new PropertyMetadata(null));
+        public static readonly DependencyProperty ComboSelectedItemProperty = DependencyProperty.Register("ComboSelectedItem", typeof(string), typeof(PanelTC), new PropertyMetadata(null));
 
-        public string SelectedItem
+        public string ComboSelectedItem
         {
-            get => (string)GetValue(SelectedItemProperty);
-            set => SetValue(SelectedItemProperty, value);
+            get => (string)GetValue(ComboSelectedItemProperty);
+            set => SetValue(ComboSelectedItemProperty, value);
         }
 
         public static readonly DependencyProperty ListItemsSourceProperty = DependencyProperty.Register("ListItemsSource", typeof(IEnumerable<object>), typeof(PanelTC), new PropertyMetadata(null));
@@ -49,12 +49,28 @@ namespace MiniTC
             set => SetValue(ListItemsSourceProperty, value);
         }
 
+        public static readonly DependencyProperty ListSelectedItemProperty = DependencyProperty.Register("ListSelectedItem", typeof(DataStructure), typeof(PanelTC), new PropertyMetadata(null));
+
+        public DataStructure ListSelectedItem
+        {
+            get => (DataStructure)GetValue(ListSelectedItemProperty);
+            set => SetValue(ListSelectedItemProperty, value);
+        }
+
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(PanelTC), new PropertyMetadata(null));
 
         public string Text
         {
             get => (string)GetValue(TextProperty);
             set => SetValue(TextProperty, value);
+        }
+
+        public static readonly DependencyProperty DoubleClickProperty = DependencyProperty.Register("DoubleClick", typeof(ICommand), typeof(PanelTC), new PropertyMetadata(null));
+
+        public ICommand DoubleClick
+        {
+            get => (ICommand)GetValue(DoubleClickProperty);
+            set => SetValue(DoubleClickProperty, value);
         }
     }
 }

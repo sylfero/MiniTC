@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace MiniTC.ViewModel
 {
@@ -13,10 +14,10 @@ namespace MiniTC.ViewModel
     {
         public PanelTCViewModel()
         {
-            SelectedDrive = Directory.GetLogicalDrives()[0];
+            SelectedDrive = Drives[0];
         }
 
-        public string[] Drives => Directory.GetLogicalDrives();
+        public string[] Drives { get; }  = Directory.GetLogicalDrives();
 
         private string _selectedDrive;
         public string SelectedDrive
@@ -25,12 +26,22 @@ namespace MiniTC.ViewModel
             set
             {
                 SetProperty(ref _selectedDrive, value);
-                CurrentDirectory = value;
+                CurrentDirectory = new DataStructure(new DirectoryInfo(value));
             }
         }
 
-        private string _currentDirectory;
-        public string CurrentDirectory
+        private DataStructure _selectedDirectory;
+        public DataStructure SelectedDirectory
+        {
+            get => _selectedDirectory;
+            set
+            {
+                SetProperty(ref _selectedDirectory, value);
+            }
+        }
+
+        private DataStructure _currentDirectory;
+        public DataStructure CurrentDirectory
         {
             get => _currentDirectory;
             set
@@ -40,30 +51,49 @@ namespace MiniTC.ViewModel
             }
         }
 
-        private ObservableCollection<string> _directories = new ObservableCollection<string>();
-        public ObservableCollection<string> Directories
+        private ObservableCollection<DataStructure> _directories = new ObservableCollection<DataStructure>();
+        public ObservableCollection<DataStructure> Directories
         {
             get => _directories;
             set => SetProperty(ref _directories, value);
         }
 
+        private ICommand _changeDirectory;
+        public ICommand ChangeDirectory
+        {
+            get
+            {
+                if (_changeDirectory == null)
+                {
+                    _changeDirectory = new RelayCommand( x => CurrentDirectory = SelectedDirectory, x => SelectedDirectory != null && SelectedDirectory.Type == Type.Drive );
+                }
+                return _changeDirectory;
+            }
+        }
+
         private void UpdateDirectories()
         {
-            Directories.Clear();
+            try
+            {
+                Directories.Clear();
 
-            if (CurrentDirectory != SelectedDrive)
-            {
-                Directories.Add("...");
-            }
+                if (CurrentDirectory.Path != SelectedDrive)
+                {
+                    Directories.Add(new DataStructure(new DirectoryInfo(Directory.GetParent(CurrentDirectory.Path).FullName)) { Name = "..." });
+                }
 
-            foreach (string directory in Directory.GetDirectories(CurrentDirectory))
-            {
-                Directories.Add("<D>" + Path.GetFileName(directory));
+
+                foreach (string directory in Directory.GetDirectories(CurrentDirectory.Path))
+                {
+                    Directories.Add(new DataStructure(new DirectoryInfo(directory)));
+                }
+                foreach (string file in Directory.GetFiles(CurrentDirectory.Path))
+                {
+                    Directories.Add(new DataStructure(new FileInfo(file)));
+                }
             }
-            foreach (string file in Directory.GetFiles(CurrentDirectory))
-            {
-                Directories.Add(Path.GetFileName(file));
-            }
+            catch (UnauthorizedAccessException) { }
+            catch (IOException) { }
         }
     }
 }

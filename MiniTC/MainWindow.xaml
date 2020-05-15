@@ -18,7 +18,9 @@
             <RowDefinition Height="9*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
+        
         <Label Content="{Binding Path=SelectedDrive}" Grid.Row="1"/>
+        
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -26,10 +28,32 @@
             </Grid.ColumnDefinitions>
 
 
-            <local:PanelTC Grid.Column="0" Text="{Binding Path=From.CurrentDirectory}" SelectedItem="{Binding Path=From.SelectedDrive, Mode=TwoWay}" ComboItemsSource="{Binding Path=From.Drives}" ListItemsSource="{Binding Path=From.Directories}"/>
+            <local:PanelTC Grid.Column="0" 
+                           Text="{Binding Path=From.CurrentDirectory.Path}" 
+                           ComboSelectedItem="{Binding Path=From.SelectedDrive, Mode=TwoWay}" 
+                           ComboItemsSource="{Binding Path=From.Drives}" 
+                           ListItemsSource="{Binding Path=From.Directories}" 
+                           ListSelectedItem="{Binding Path=From.SelectedDirectory, Mode=TwoWay}" 
+                           DoubleClick="{Binding Path=From.ChangeDirectory}"/>
 
 
-            <local:PanelTC Grid.Column="1" Text="{Binding Path=To.CurrentDirectory}" SelectedItem="{Binding Path=To.SelectedDrive, Mode=TwoWay}" ComboItemsSource="{Binding Path=To.Drives}" ListItemsSource="{Binding Path=To.Directories}"/>
+            <local:PanelTC Grid.Column="1" 
+                           Text="{Binding Path=To.CurrentDirectory.Path}"
+                           ComboSelectedItem="{Binding Path=To.SelectedDrive, Mode=TwoWay}" 
+                           ComboItemsSource="{Binding Path=To.Drives}"
+                           ListItemsSource="{Binding Path=To.Directories}" 
+                           ListSelectedItem="{Binding Path=To.SelectedDirectory, Mode=TwoWay}" 
+                           DoubleClick="{Binding Path=To.ChangeDirectory}"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="33*"/>
+                <ColumnDefinition Width="33*"/>
+                <ColumnDefinition Width="33*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="1" Content="{Binding Source ={x:Static resx:Resources.Copy}}"/>
         </Grid>
     </Grid>
 </Window>
