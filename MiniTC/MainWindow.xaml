@@ -25,7 +25,6 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-
             <local:PanelTC Grid.Column="0" 
                            Text="{Binding Path=From.CurrentDirectory.Path}" 
                            ComboSelectedItem="{Binding Path=From.SelectedDrive, Mode=TwoWay}" 
@@ -51,7 +50,7 @@
                 <ColumnDefinition Width="33*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="1" Content="{Binding Source ={x:Static resx:Resources.Copy}}"/>
+            <Button Grid.Column="1" Content="{Binding Source ={x:Static resx:Resources.Copy}}" Command="{Binding Path=CopyCommand}"/>
         </Grid>
     </Grid>
 </Window>

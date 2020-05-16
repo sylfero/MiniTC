@@ -36,7 +36,7 @@
 
             <ComboBox Grid.Column="2" 
                       SelectedItem="{Binding Path=ComboSelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" 
-                      ItemsSource="{Binding Path=ComboItemsSource, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"/>
+                      ItemsSource="{Binding Path=ComboItemsSource, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" />
         </Grid>
 
         <ListBox Grid.Row="2" ItemsSource="{Binding Path=ListItemsSource, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"

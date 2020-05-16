@@ -1,11 +1,7 @@
 ﻿using MiniTC.ViewModel.BaseClasses;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace MiniTC.ViewModel
@@ -17,7 +13,7 @@ namespace MiniTC.ViewModel
             SelectedDrive = Drives[0];
         }
 
-        public string[] Drives { get; }  = Directory.GetLogicalDrives();
+        public string[] Drives { get; } = Directory.GetLogicalDrives();
 
         private string _selectedDrive;
         public string SelectedDrive
@@ -65,7 +61,7 @@ namespace MiniTC.ViewModel
             {
                 if (_changeDirectory == null)
                 {
-                    _changeDirectory = new RelayCommand( x => CurrentDirectory = SelectedDirectory, x => SelectedDirectory.Type == Type.Drive );
+                    _changeDirectory = new RelayCommand( x => CurrentDirectory = SelectedDirectory, x => SelectedDirectory.Type == Type.Directory );
                 }
                 return _changeDirectory;
             }
@@ -94,8 +90,14 @@ namespace MiniTC.ViewModel
                     Directories.Add(new DataStructure(new FileInfo(file)));
                 }
             }
-            catch (UnauthorizedAccessException) { }
-            catch (IOException) { }
+            catch (UnauthorizedAccessException) 
+            {
+                CurrentDirectory = new DataStructure(new DirectoryInfo(Directory.GetParent(CurrentDirectory.Path).FullName));
+            }
+            catch (IOException) 
+            {
+                CurrentDirectory = new DataStructure(new DirectoryInfo(Directory.GetParent(CurrentDirectory.Path).FullName));
+            }
         }
     }
 }

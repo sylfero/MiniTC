@@ -5,7 +5,7 @@ namespace MiniTC
     public enum Type
     { 
         File,
-        Drive
+        Directory
     }
 
     public class DataStructure
@@ -19,7 +19,7 @@ namespace MiniTC
             if (systemInfo is DirectoryInfo)
             {
                 Name = "<D>" + systemInfo.Name;
-                Type = Type.Drive;
+                Type = Type.Directory;
             }
             else
             {
