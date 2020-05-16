@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:resx ="clr-namespace:MiniTC.Properties"
              xmlns:local="clr-namespace:MiniTC"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -41,12 +40,18 @@
         </Grid>
 
         <ListBox Grid.Row="2" ItemsSource="{Binding Path=ListItemsSource, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
-                 SelectedItem="{Binding Path=ListSelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDoubleClick">
-                    <i:InvokeCommandAction Command="{Binding Path=DoubleClick, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+                 SelectedItem="{Binding Path=ListSelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
+                 HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}">
+                        <TextBlock.InputBindings>
+                            <MouseBinding Command="{Binding Path=DoubleClick, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" MouseAction="LeftDoubleClick"/>
+                        </TextBlock.InputBindings>
+                    </TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
     </Grid>
 </UserControl>

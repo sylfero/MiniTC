@@ -65,7 +65,7 @@ namespace MiniTC.ViewModel
             {
                 if (_changeDirectory == null)
                 {
-                    _changeDirectory = new RelayCommand( x => CurrentDirectory = SelectedDirectory, x => SelectedDirectory != null && SelectedDirectory.Type == Type.Drive );
+                    _changeDirectory = new RelayCommand( x => CurrentDirectory = SelectedDirectory, x => SelectedDirectory.Type == Type.Drive );
                 }
                 return _changeDirectory;
             }
@@ -75,6 +75,9 @@ namespace MiniTC.ViewModel
         {
             try
             {
+                string[] directories = Directory.GetDirectories(CurrentDirectory.Path);
+                string[] files = Directory.GetFiles(CurrentDirectory.Path);
+
                 Directories.Clear();
 
                 if (CurrentDirectory.Path != SelectedDrive)
@@ -82,12 +85,11 @@ namespace MiniTC.ViewModel
                     Directories.Add(new DataStructure(new DirectoryInfo(Directory.GetParent(CurrentDirectory.Path).FullName)) { Name = "..." });
                 }
 
-
-                foreach (string directory in Directory.GetDirectories(CurrentDirectory.Path))
+                foreach (string directory in directories)
                 {
                     Directories.Add(new DataStructure(new DirectoryInfo(directory)));
                 }
-                foreach (string file in Directory.GetFiles(CurrentDirectory.Path))
+                foreach (string file in files)
                 {
                     Directories.Add(new DataStructure(new FileInfo(file)));
                 }
