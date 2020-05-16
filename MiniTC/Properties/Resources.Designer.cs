@@ -61,7 +61,7 @@ namespace MiniTC.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copy.
+        ///   Looks up a localized string similar to Copy &gt;&gt;.
         /// </summary>
         public static string Copy {
             get {

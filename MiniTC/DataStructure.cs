@@ -13,6 +13,7 @@ namespace MiniTC
         public string Path { get; }
         public string Name { get; set; }
         public Type Type { get; }
+        public bool Base { get; set; } = false;
 
         public DataStructure(FileSystemInfo systemInfo)
         {

@@ -2,6 +2,7 @@
 using MiniTC.ViewModel.BaseClasses;
 using System;
 using System.IO;
+using System.Management;
 using System.Windows.Input;
 
 namespace MiniTC.ViewModel
@@ -12,6 +13,7 @@ namespace MiniTC.ViewModel
         {
             To = new PanelTCViewModel();
             From = new PanelTCViewModel();
+            new Watcher(UpdateDrives, UpdateDrives);
         }
 
         private PanelTCViewModel _to;
@@ -35,7 +37,7 @@ namespace MiniTC.ViewModel
             {
                 if (_copyCommand == null)
                 {
-                    _copyCommand = new RelayCommand(x => Copy(), x => _from.SelectedDirectory != null);
+                    _copyCommand = new RelayCommand(x => Copy(), x => _from.SelectedDirectory != null && !_from.SelectedDirectory.Base);
                 }
                 return _copyCommand;
             }
@@ -59,6 +61,12 @@ namespace MiniTC.ViewModel
             }
             catch (UnauthorizedAccessException) { }
             catch (IOException) { }
+        }
+
+        private void UpdateDrives(object sender, EventArrivedEventArgs e)
+        {
+            _from.UpdateDrives();
+            _to.UpdateDrives();
         }
     }
 }

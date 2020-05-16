@@ -7,13 +7,13 @@
         xmlns:resx ="clr-namespace:MiniTC.Properties"
         xmlns:local="clr-namespace:MiniTC"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Background="#f0f0f0">
 
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
 
-    <Grid>
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="9*"/>
             <RowDefinition Height="1*"/>
@@ -21,22 +21,23 @@
 
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="48*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="48*"/>
             </Grid.ColumnDefinitions>
 
             <local:PanelTC Grid.Column="0" 
                            Text="{Binding Path=From.CurrentDirectory.Path}" 
-                           ComboSelectedItem="{Binding Path=From.SelectedDrive, Mode=TwoWay}" 
+                           ComboSelectedItem="{Binding Path=From.CurrentDrive, Mode=TwoWay}" 
                            ComboItemsSource="{Binding Path=From.Drives}" 
                            ListItemsSource="{Binding Path=From.Directories}" 
                            ListSelectedItem="{Binding Path=From.SelectedDirectory, Mode=TwoWay}" 
                            DoubleClick="{Binding Path=From.ChangeDirectory}"/>
 
 
-            <local:PanelTC Grid.Column="1" 
+            <local:PanelTC Grid.Column="2" 
                            Text="{Binding Path=To.CurrentDirectory.Path}"
-                           ComboSelectedItem="{Binding Path=To.SelectedDrive, Mode=TwoWay}" 
+                           ComboSelectedItem="{Binding Path=To.CurrentDrive, Mode=TwoWay}" 
                            ComboItemsSource="{Binding Path=To.Drives}"
                            ListItemsSource="{Binding Path=To.Directories}" 
                            ListSelectedItem="{Binding Path=To.SelectedDirectory, Mode=TwoWay}" 
@@ -49,8 +50,15 @@
                 <ColumnDefinition Width="33*"/>
                 <ColumnDefinition Width="33*"/>
             </Grid.ColumnDefinitions>
+            
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="9*"/>
+                </Grid.RowDefinitions>
 
-            <Button Grid.Column="1" Content="{Binding Source ={x:Static resx:Resources.Copy}}" Command="{Binding Path=CopyCommand}"/>
+                <Button Grid.Row="1" Content="{Binding Source ={x:Static resx:Resources.Copy}}" Command="{Binding Path=CopyCommand}"/>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

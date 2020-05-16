@@ -10,19 +10,28 @@ namespace MiniTC.ViewModel
     {
         public PanelTCViewModel()
         {
-            SelectedDrive = Drives[0];
+            Drives = Directory.GetLogicalDrives();
+            CurrentDrive = Drives[0];
         }
 
-        public string[] Drives { get; } = Directory.GetLogicalDrives();
-
-        private string _selectedDrive;
-        public string SelectedDrive
+        private string[] _drives;
+        public string[] Drives 
         {
-            get => _selectedDrive;
+            get => _drives;
             set
             {
-                SetProperty(ref _selectedDrive, value);
-                CurrentDirectory = new DataStructure(new DirectoryInfo(value));
+                SetProperty(ref _drives, value);
+            }
+        } 
+
+        private string _curentDrive;
+        public string CurrentDrive
+        {
+            get => _curentDrive;
+            set
+            {
+                SetProperty(ref _curentDrive, value ?? Drives[0]);
+                CurrentDirectory = new DataStructure(new DirectoryInfo(value ?? Drives[0]));
             }
         }
 
@@ -76,9 +85,9 @@ namespace MiniTC.ViewModel
 
                 Directories.Clear();
 
-                if (CurrentDirectory.Path != SelectedDrive)
+                if (CurrentDirectory.Path != CurrentDrive)
                 {
-                    Directories.Add(new DataStructure(new DirectoryInfo(Directory.GetParent(CurrentDirectory.Path).FullName)) { Name = "..." });
+                    Directories.Add(new DataStructure(new DirectoryInfo(Directory.GetParent(CurrentDirectory.Path).FullName)) { Name = "...", Base = true });
                 }
 
                 foreach (string directory in directories)
@@ -98,6 +107,11 @@ namespace MiniTC.ViewModel
             {
                 CurrentDirectory = new DataStructure(new DirectoryInfo(Directory.GetParent(CurrentDirectory.Path).FullName));
             }
+        }
+
+        public void UpdateDrives()
+        {
+            Drives = Directory.GetLogicalDrives();
         }
     }
 }

@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Copy" xml:space="preserve">
-    <value>Copy &gt;&gt;</value>
+    <value>Kopiuj &gt;&gt;</value>
   </data>
   <data name="Drive" xml:space="preserve">
-    <value>Drive:</value>
+    <value>Dysk:</value>
   </data>
   <data name="Path" xml:space="preserve">
-    <value>Path:</value>
+    <value>Ścieżka:</value>
   </data>
 </root>
