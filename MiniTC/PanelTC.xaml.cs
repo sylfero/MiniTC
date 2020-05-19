@@ -7,19 +7,19 @@ namespace MiniTC
     /// <summary>
     /// Interaction logic for PanelTC.xaml
     /// </summary>
-    public partial class PanelTC : UserControl
+    public partial class PanelTC : UserControl, IPanelTC
     {
         public PanelTC()
         {
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty ComboItemsSourceProperty = DependencyProperty.Register("ComboItemsSource", typeof(string[]), typeof(PanelTC), new PropertyMetadata(null));
+        public static readonly DependencyProperty DrivesProperty = DependencyProperty.Register("Drives", typeof(string[]), typeof(PanelTC), new PropertyMetadata(null));
 
-        public string[] ComboItemsSource
+        public string[] Drives
         {
-            get => (string[])GetValue(ComboItemsSourceProperty);
-            set => SetValue(ComboItemsSourceProperty, value);
+            get => (string[])GetValue(DrivesProperty);
+            set => SetValue(DrivesProperty, value);
         }
 
         public static readonly DependencyProperty ComboSelectedItemProperty = DependencyProperty.Register("ComboSelectedItem", typeof(string), typeof(PanelTC), new PropertyMetadata(null));
@@ -30,12 +30,12 @@ namespace MiniTC
             set => SetValue(ComboSelectedItemProperty, value);
         }
 
-        public static readonly DependencyProperty ListItemsSourceProperty = DependencyProperty.Register("ListItemsSource", typeof(IEnumerable<object>), typeof(PanelTC), new PropertyMetadata(null));
+        public static readonly DependencyProperty PathContentProperty = DependencyProperty.Register("PathContent", typeof(IEnumerable<object>), typeof(PanelTC), new PropertyMetadata(null));
 
-        public IEnumerable<object> ListItemsSource
+        public IEnumerable<object> PathContent
         {
-            get => (IEnumerable<object>)GetValue(ListItemsSourceProperty);
-            set => SetValue(ListItemsSourceProperty, value);
+            get => (IEnumerable<object>)GetValue(PathContentProperty);
+            set => SetValue(PathContentProperty, value);
         }
 
         public static readonly DependencyProperty ListSelectedItemProperty = DependencyProperty.Register("ListSelectedItem", typeof(DataStructure), typeof(PanelTC), new PropertyMetadata(null));
@@ -46,12 +46,12 @@ namespace MiniTC
             set => SetValue(ListSelectedItemProperty, value);
         }
 
-        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(PanelTC), new PropertyMetadata(null));
+        public static readonly DependencyProperty CurrentPathProperty = DependencyProperty.Register("CurrentPath", typeof(string), typeof(PanelTC), new PropertyMetadata(null));
 
-        public string Text
+        public string CurrentPath
         {
-            get => (string)GetValue(TextProperty);
-            set => SetValue(TextProperty, value);
+            get => (string)GetValue(CurrentPathProperty);
+            set => SetValue(CurrentPathProperty, value);
         }
 
         public static readonly DependencyProperty DoubleClickProperty = DependencyProperty.Register("DoubleClick", typeof(ICommand), typeof(PanelTC), new PropertyMetadata(null));

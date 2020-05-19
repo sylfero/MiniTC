@@ -24,7 +24,7 @@
 
             <Label Grid.Column="0" Content="{Binding Source ={x:Static resx:Resources.Path}}" VerticalAlignment="Center"/>
 
-            <TextBox Grid.Column="1" IsEnabled="False" Text="{Binding Path=Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
+            <TextBox Grid.Column="1" IsEnabled="False" Text="{Binding Path=CurrentPath, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
                      VerticalContentAlignment="Center"/>
         </Grid>
 
@@ -39,10 +39,10 @@
 
             <ComboBox Grid.Column="2" VerticalContentAlignment="Center"
                       SelectedItem="{Binding Path=ComboSelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" 
-                      ItemsSource="{Binding Path=ComboItemsSource, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"/>
+                      ItemsSource="{Binding Path=Drives, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"/>
         </Grid>
 
-        <ListBox Grid.Row="4" ItemsSource="{Binding Path=ListItemsSource, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
+        <ListBox Grid.Row="4" ItemsSource="{Binding Path=PathContent, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
                  SelectedItem="{Binding Path=ListSelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
                  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
 

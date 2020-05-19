@@ -27,19 +27,19 @@
             </Grid.ColumnDefinitions>
 
             <local:PanelTC Grid.Column="0" 
-                           Text="{Binding Path=From.CurrentDirectory.Path}" 
+                           CurrentPath="{Binding Path=From.CurrentDirectory.Path}" 
                            ComboSelectedItem="{Binding Path=From.CurrentDrive, Mode=TwoWay}" 
-                           ComboItemsSource="{Binding Path=From.Drives}" 
-                           ListItemsSource="{Binding Path=From.Directories}" 
+                           Drives="{Binding Path=From.Drives}" 
+                           PathContent="{Binding Path=From.Directories}" 
                            ListSelectedItem="{Binding Path=From.SelectedDirectory, Mode=TwoWay}" 
                            DoubleClick="{Binding Path=From.ChangeDirectory}"/>
 
 
             <local:PanelTC Grid.Column="2" 
-                           Text="{Binding Path=To.CurrentDirectory.Path}"
+                           CurrentPath="{Binding Path=To.CurrentDirectory.Path}"
                            ComboSelectedItem="{Binding Path=To.CurrentDrive, Mode=TwoWay}" 
-                           ComboItemsSource="{Binding Path=To.Drives}"
-                           ListItemsSource="{Binding Path=To.Directories}" 
+                           Drives="{Binding Path=To.Drives}"
+                           PathContent="{Binding Path=To.Directories}" 
                            ListSelectedItem="{Binding Path=To.SelectedDirectory, Mode=TwoWay}" 
                            DoubleClick="{Binding Path=To.ChangeDirectory}"/>
         </Grid>
@@ -50,7 +50,7 @@
                 <ColumnDefinition Width="33*"/>
                 <ColumnDefinition Width="33*"/>
             </Grid.ColumnDefinitions>
-            
+
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
